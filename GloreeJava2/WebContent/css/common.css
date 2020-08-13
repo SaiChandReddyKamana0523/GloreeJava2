@@ -1,0 +1,261 @@
+@CHARSET "UTF-8";
+
+
+.bs-callout {
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+  background-color: #fff;
+}
+ 
+/* Themes for different contexts */
+.bs-callout-danger {
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
+}
+.bs-callout-warning {
+  background-color: #fefbed;
+  border-color: #f1e7bc;
+}
+.bs-callout-info {
+  background-color: #f0f7fd;
+  border-color: #d0e3f0;
+}
+
+
+
+
+
+input[type="text"]
+{
+height:25px;
+}
+
+input[type="password"]
+{
+height:25px;
+}
+
+input[type="button"]
+{
+  display:inline;
+  float: center; 
+  padding: 5px 5px 5px 5px; 
+  margin: 0 0 10px 0; 
+  height: 25px;
+  text-align: center
+}
+
+	.normalText10 {
+ 		font: 9pt Arial,Helvetica,sans-serif;
+ 		color: black;
+ 		font-weight:normal;
+		line-height:1.5em;
+	}
+	.sectionHeadingText10 {
+ 		font: 10pt Arial;
+ 		letter-spacing 4pt;
+ 		color: green
+	}
+	.normalText {
+ 		font: 9pt Arial;
+ 		letter-spacing 4pt;
+ 		color: black
+	}
+	.redText {
+ 		font: 9pt Arial;
+ 		letter-spacing 4pt;
+ 		color: red
+	}
+	.headingText {
+ 		font: 9pt Arial;
+ 		letter-spacing 4pt;
+ 		color: black
+	}
+
+	.subSectionHeadingText {
+ 		font: 9pt Arial;
+ 		letter-spacing 4pt;
+ 		color: black;
+	}
+	.sectionHeadingText {
+ 		font: 9pt Arial;
+ 		letter-spacing 4pt;
+ 		color: green;
+ 		font-weight: bold;
+	}
+
+	.toolbarNormalText {
+ 		font: 9pt Arial;
+ 		letter-spacing 4pt;
+ 		color: white
+	}
+	.toolbarHeadingText {
+ 		font: 9pt Arial;
+ 		letter-spacing 4pt;
+ 		color: white
+	}
+	
+	#contentCenterA {
+		padding:3px;
+		
+	}
+	#contentCenterB {
+		padding:3px;
+		border:2px solid white ;
+
+	}
+	#contentCenterC {
+		padding:3px;
+		border:2px solid white ;
+
+	}
+	#contentCenterD {
+		padding:3px;
+		border:2px solid white ;
+	}
+	
+	
+	
+	div.actionPrompt{
+		padding:5px;
+		border:1px solid red ;
+	}
+	div.userSuccessAlert{
+		padding:5px;
+		border:1px solid green ;
+	}
+	
+	
+	div.level1Box{
+		padding:3px;
+		background-color:white;
+		
+	}
+	div.level2BoxColored{
+		padding:3px;
+		background-color:white;
+	}
+
+	div.level2Box{
+		padding:3px;
+	}
+
+	div.invisibleLevel1Box{
+		padding:3px;
+	}
+	
+	td.tableHeader{
+		padding:3px;
+	}
+	
+	td.normalTableCell{
+		padding:3px;
+	}
+	td.altTableCell{
+		padding:3px;
+		background-color:#EBE4F2;
+	}
+	
+	td.altTableCell2{
+		padding:3px;
+		background-color:#FAE4EC;
+	}
+	
+	td.altTableCell3{
+		padding:3px;
+		background-color:#F0F3F7;
+	}
+	td.icons{
+		padding:5px;
+	}
+	
+	td.nonFocusTab{
+		background-image:url(/GloreeJava2/images/nonFocusTab.png);
+		background-repeat: no-repeat;
+        background-position: center center;
+	}
+	
+	td.focusTab{
+		background-image:url(/GloreeJava2/images/focusTab.png);
+		background-repeat: no-repeat;
+        background-position: center center;
+	}
+	
+	span.icon-folder {
+		padding-left:20px;
+		background:url(/GloreeJava2/images/folder.png) no-repeat;
+	}
+	
+	table.paddedTable td { padding:3px; }
+	
+	
+A:link {text-decoration: none; font-size: 9pt; font-family: Arial;  color: #0000ff}
+A:visited {text-decoration: none; font-size: 9pt; font-family: Arial;  color: #0000ff}
+A:hover { text-decoration: underline; font-size: 9pt; font-family: Arial;  color: #ff0000 }
+
+a.toolbar:link
+{
+     color:white;
+     text-decoration: none;
+}
+a.toolbar:visited
+{
+     color:white;
+     text-decoration: none;
+}
+a.toolbar:hover
+{
+     color:#FF0000;
+     text-decoration: underline;
+}
+
+
+
+
+	/*Credits: Dynamic Drive CSS Library */
+	/*URL: http://www.dynamicdrive.com/style/ */
+
+	.thumbnail{
+	position: relative;
+	z-index: 0;
+	}
+
+	.thumbnail:hover{
+	background-color: transparent;
+	z-index: 50;
+	}
+
+	.thumbnail span{ /*CSS for enlarged image*/
+	position: absolute;
+	background-color: lightyellow;
+	padding: 5px;
+	border: 1px dashed gray;
+	visibility: hidden;
+	color: black;
+	text-decoration: none;
+	}
+
+	.thumbnail span img{ /*CSS for enlarged image*/
+	border-width: 0;
+	padding: 2px;
+	}
+
+	.thumbnail:hover span{ /*CSS for enlarged image on hover*/
+	position: absolute;
+	visibility: visible;
+	top: 50px;
+	left: -300px; /*position where enlarged image should offset horizontally */
+	z-index:300;
+	}
+
+	

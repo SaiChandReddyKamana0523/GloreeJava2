@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>GloreeJava2</display-name>
+	
+	 <!-- Require HTTPS for everything except /img (favicon) and /css. -->
+	 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOnly</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOrHTTP</web-resource-name>
+            <url-pattern>*.ico</url-pattern>
+            <url-pattern>/img/*</url-pattern>
+            <url-pattern>/css/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+	
+	
+	
+<filter>
+	<filter-name>EncodingFilter</filter-name>
+	<filter-class>com.gloree.actions.EncodingFilter</filter-class>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+</filter>
+
+<filter-mapping>
+	<filter-name>EncodingFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+	
+	
+	
+	<resource-ref>
+      <description>DB Connection</description>
+      <res-ref-name>jdbc/gloree</res-ref-name>
+      <res-type>javax.sql.DataSource</res-type>
+      <res-auth>Container</res-auth>
+  	</resource-ref>
+
+  <!-- This is the license file. Please work with support@tracecloud.com to get a valid license file -->
+  <context-param>
+    <param-name>licenseString</param-name>
+    <param-value></param-value>
+  </context-param>
+
+
+
+
+  <!-- Path to an empty word file, named template.doc, which has 1 hyperlink in it. It's used in List and Trace Tree reports to export to word docs-->
+  <context-param>
+    <param-name>templateFilePath</param-name>
+    <param-value>E:\\template.doc</param-value>
+  </context-param>
+
+					
+					
+
+  <!-- This determines the backend database. Options are (mySQL, oracle)  -->
+  <context-param>
+    <param-name>databaseType</param-name>
+    <param-value>mySQL</param-value>
+  </context-param>
+
+  <!-- This determines if LogViewEvents for requirements is enabled. If yes, may make the system slow as logging is enabled. 
+  Options are yes/no  -->
+  <context-param>
+    <param-name>logViewEventEnabled</param-name>
+    <param-value>yes</param-value>
+  </context-param>
+
+
+  <!-- This determines if License Management Tab should be visible to non-site-admins or not. Irrespective of this setting, site admins will always see the license management tab. 
+  Options are yes/no. This works only on the onSite installtion type.   -->
+  <context-param>
+    <param-name>hideLicenseManagementTab</param-name>
+    <param-value>yes</param-value>
+  </context-param>
+
+
+
+  <!-- This determines the type of installation. Options are (onSite, saas)  -->
+  <context-param>
+    <param-name>installationType</param-name>
+    <param-value>saas</param-value>
+  </context-param>
+
+  <!-- Applicable only for installtiontype = onSite. Otherwise ignored. This drives licensing costs.  -->
+  <context-param>
+    <param-name>readWriteLicenses</param-name>
+    <param-value>100</param-value>
+  </context-param>
+  
+  
+
+
+  <!-- This determines the site admin. Only this person gets to manage licenses on this site. Please ensure
+  that you enter the siteAdmins email account and this is what the siteAdmin uses to create his onSite TraceCloud account.
+  This is only applicable where installationType = onSite  -->
+  
+  <context-param>
+    <param-name>siteAdministrator</param-name>
+    <param-value>st1@tracecloud.com,sami@tracecloud.com,richarjacinto@tracecloud.com,derekpitcher@tracecloud.com</param-value>
+  </context-param>
+
+				
+  <!-- (true/false)If set to true, then this site has Agile Enablement and workflow  -->
+  
+  <context-param>
+    <param-name>siteEnabledForAgile</param-name>
+    <param-value>true</param-value>
+  </context-param>
+						
+
+				
+				
+<!-- Email Connection parameters -->
+
+	<context-param>
+	    <param-name>mailHost</param-name>
+    	<param-value>smtp.gmail.com</param-value>
+  	</context-param>
+
+	<context-param>
+	    <param-name>transportProtocol</param-name>
+    	<param-value>smtp</param-value>
+  	</context-param>
+
+	<context-param>
+	    <param-name>smtpAuth</param-name>
+    	<param-value>true</param-value>
+  	</context-param>
+  	
+	<context-param>
+	    <param-name>smtpPort</param-name>
+    	<param-value>587</param-value>
+  	</context-param>
+  	
+  	<context-param>
+	    <param-name>smtpSocketFactoryPort</param-name>
+    	<param-value>587</param-value>
+  	</context-param>
+  	
+   	<context-param>
+	    <param-name>emailUserId</param-name>
+    	<param-value>admin@tracecloud.com</param-value>
+  	</context-param> 	
+  	
+   	<context-param>
+	    <param-name>emailPassword</param-name>
+    	<param-value>c0stc0622</param-value>
+  	</context-param>   	
+  	
+  	<context-param>
+	    <param-name>testPd</param-name>
+    	<param-value>search</param-value>
+  	</context-param>   	
+  	
+  
+	<!-- This determines the the root location where all the files are stored. For SAAS production it is E:  -->
+  <context-param>
+    <param-name>rootDataDirectory</param-name>
+    <param-value>E:</param-value>
+  </context-param>
+
+	<!-- How large can attachment to requirements be-->
+  <context-param>
+    <param-name>maxRequirementAttachmentSize</param-name>
+    <param-value>100971520</param-value>
+  </context-param>
+
+	<!-- How large can an importable Excel file be -->
+  <context-param>
+    <param-name>maxImportExcelFileSize</param-name>
+    <param-value>8388608</param-value>
+  </context-param>
+  	
+  	<!-- How large can word docs like PRD, SFS be. -->
+  <context-param>
+    <param-name>maxWordTemplateSize</param-name>
+    <param-value>20971520</param-value>
+  </context-param>
+
+
+  	<!-- Max number of columns to be included when an Excel is embedded in a word document regeneration. -->
+  <context-param>
+    <param-name>maxColumnsOfExcelToEmbedInWord</param-name>
+    <param-value>15</param-value>
+  </context-param>
+
+
+
+
+
+ 
+ 	<!-- Which project should be cloned for user. Relevant only for installationType=saas -->
+  <context-param>
+    <param-name>clonableSampleProjectId</param-name>
+    <param-value>86</param-value>
+  </context-param>
+	<!-- Which project should be cloned for user. Relevant only for installationType=saas -->
+  <context-param>
+    <param-name>clonableSampleProjectPrefix</param-name>
+    <param-value>SUN</param-value>
+  </context-param>
+	<!-- Which project should be cloned for user. Relevant only for installationType=saas -->
+  <context-param>
+    <param-name>clonableSampleProjectCreatedBy</param-name>
+    <param-value>sami@tracecloud.com</param-value>
+  </context-param>
+  	
+  	
+
+
+
+
+
+
+
+  	
+  <!-- This determines the authentation method. The values are (ldap,database).  -->	
+  <context-param>
+    <param-name>authenticationType</param-name>
+    <param-value>database</param-value>
+  </context-param>
+  
+  <!--For LDAP authentication type, 
+  This can be emailId or userId. 
+  if userId, then the user is expected to enter userId when prompted by LDAP . eg: aditya.
+  The system then looks for the ldapAuthenticationEmailDomain and adds it to the user id. eg: @diebold.com
+  The combination (aditya@diebold.com) is used to create a TraceCloud profile.
+  If emailId , then the user is expected to enter a value like aditya@diebold.com
+   -->
+  
+  <context-param>
+    <param-name>ldapAuthenticationPattern</param-name>
+    <param-value>userId</param-value>
+  </context-param>
+  
+  
+  <!-- ldapAuthenticationEmailDomain is applicable, only if the ldapAuthenticationPattern is 'userId' -->  
+  <context-param>
+    <param-name>ldapAuthenticationEmailDomain</param-name>
+    <param-value>@diebold.com</param-value>
+  </context-param>
+  
+  <!-- This determines the maximum number of rows a trace tree can return.
+  	Please note that this has an impact on the java heap size. ie if you set this
+  	too large, please increate your JVM heapsize for your app server accordingly.
+  	Otherwise your users will see the Java out of memory errror.  -->	
+  <context-param>
+    <param-name>maxRowsInTraceTree</param-name>
+    <param-value>20000</param-value>
+  </context-param>
+
+
+
+<!-- if UniqueTDCSFullTag is set to 'true', then tdcs full tags are never repeated , even across projects.
+i.e TDCS-1 can only exist in one project.  
+If set to 'false', then each project can get TDCS-1, TDCS-2 etc... Typically on saas solution you want to 
+set unique to false, and in an onsite solution (say like Cisco) you want to set this to true. -->
+  <context-param>
+    <param-name>uniqueTDCSFullTag</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+Jira Cloud Integration servlets
+
+
+-->
+
+    <servlet>
+        <servlet-name>webhook</servlet-name>
+        <servlet-class>jiraCloud.WebHookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>webhook</servlet-name>
+        <url-pattern>/webhook/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>myproxy</servlet-name>
+        <servlet-class>jiraCloud.ProxyServlet</servlet-class>
+        <init-param>
+            <param-name>targetUri</param-name>
+            <param-value>http://localhost:3000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>log</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>myproxy</servlet-name>
+        <url-pattern>/proxy/*</url-pattern>
+    </servlet-mapping>
+
+
+
+
+	<servlet>
+       <servlet-name>cgi</servlet-name>
+       <servlet-class>org.apache.catalina.servlets.CGIServlet</servlet-class>
+ 		<init-param>
+			<param-name>passShellEnvironment </param-name>
+			<param-value>true</param-value>
+		</init-param>      
+       <init-param>
+         <param-name>debug</param-name>
+         <param-value>6</param-value>
+       </init-param>
+       <init-param>
+         <param-name>cgiPathPrefix</param-name>
+         <param-value>WEB-INF/cgi</param-value>
+       </init-param>
+        <load-on-startup>5</load-on-startup>
+   </servlet>
+   
+
+
+	<servlet>
+		<servlet-name>Image</servlet-name>
+		<servlet-class>com.jsos.image.ImageServlet</servlet-class>
+	</servlet>
+  	
+  	  	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Hello</display-name>
+		<servlet-name>Hello</servlet-name>
+		<servlet-class>
+		com.gloree.actions.Hello</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		AgileScrumAction</display-name>
+		<servlet-name>AgileScrumAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.AgileScrumAction</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ClearQuestAction</display-name>
+		<servlet-name>ClearQuestAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.ClearQuestAction
+		</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		JiraAction</display-name>
+		<servlet-name>JiraAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.JiraAction
+		</servlet-class>
+	</servlet>	
+	
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		CPVAction</display-name>
+		<servlet-name>CPVAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.Customizations.Diebold.Hardware.CPVAction</servlet-class>
+	</servlet>
+
+		
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		CNPWAction</display-name>
+		<servlet-name>CNPWAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.CNPWAction</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ProjectAction</display-name>
+		<servlet-name>ProjectAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.ProjectAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		RESTAPIAction</display-name>
+		<servlet-name>RESTAPIAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.RESTAPIAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		RequirementAction</display-name>
+		<servlet-name>RequirementAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.RequirementAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		SharedRequirementAction</display-name>
+		<servlet-name>SharedRequirementAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.SharedRequirementAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		TDCSAction</display-name>
+		<servlet-name>TDCSAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.TDCSAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		FolderAction</display-name>
+		<servlet-name>FolderAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.FolderAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		TraceAction</display-name>
+		<servlet-name>TraceAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.TraceAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		RequirementTypeAction</display-name>
+		<servlet-name>RequirementTypeAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.RequirementTypeAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ProjectBaselineAction</display-name>
+		<servlet-name>ProjectBaselineAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.ProjectBaselineAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		UserAccountAction</display-name>
+		<servlet-name>UserAccountAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.UserAccountAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		RoleAction</display-name>
+		<servlet-name>RoleAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.RoleAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ReportAction</display-name>
+		<servlet-name>ReportAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.ReportAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		DisplayAction</display-name>
+		<servlet-name>DisplayAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.DisplayAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ImportFromExcelAction</display-name>
+		<servlet-name>ImportFromExcelAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.ImportFromExcelAction</servlet-class>
+	</servlet>
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ImportFromExcelActionTN</display-name>
+		<servlet-name>ImportFromExcelActionTN</servlet-name>
+		<servlet-class>
+		com.gloree.actions.ImportFromExcelActionTN</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		AddRequirementAttachmentAction</display-name>
+		<servlet-name>AddRequirementAttachmentAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.AddRequirementAttachmentAction</servlet-class>
+	</servlet>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		AddRequirementAttachmentActionOpen</display-name>
+		<servlet-name>AddRequirementAttachmentActionOpen</servlet-name>
+		<servlet-class>
+		com.gloree.actions.AddRequirementAttachmentActionOpen</servlet-class>
+	</servlet>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ImportFromExcelProcessAction</display-name>
+		<servlet-name>ImportFromExcelProcessAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.ImportFromExcelProcessAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		CreateWordTemplateAction</display-name>
+		<servlet-name>CreateWordTemplateAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.CreateWordTemplateAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		CreateSNWordTemplateAction</display-name>
+		<servlet-name>CreateSNWordTemplateAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.CreateSNWordTemplateAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		EditWordTemplateAction</display-name>
+		<servlet-name>EditWordTemplateAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.EditWordTemplateAction</servlet-class>
+	</servlet>	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		WordTemplateAction</display-name>
+		<servlet-name>WordTemplateAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.WordTemplateAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		BaselineMetricsAction</display-name>
+		<servlet-name>BaselineMetricsAction</servlet-name>
+		<servlet-class>
+		com.gloree.actions.BaselineMetricsAction</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>EncodingFilter</display-name>
+		<servlet-name>EncodingFilter</servlet-name>
+		<servlet-class>
+		com.gloree.actions.EncodingFilter</servlet-class>
+	</servlet>
+	
+	
+	
+
+	
+	
+		
+	<servlet-mapping>
+       <servlet-name>cgi</servlet-name>
+       <url-pattern>/cgi-bin/*</url-pattern>
+   </servlet-mapping>
+   
+	<servlet-mapping>
+		<servlet-name>Image</servlet-name>
+		<url-pattern>/servlet/Image</url-pattern>
+	</servlet-mapping>  
+
+
+	<servlet-mapping>
+		<servlet-name>Hello</servlet-name>
+		<url-pattern>/Hello</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AgileScrumAction</servlet-name>
+		<url-pattern>/servlet/AgileScrumAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClearQuestAction</servlet-name>
+		<url-pattern>/servlet/ClearQuestAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JiraAction</servlet-name>
+		<url-pattern>/servlet/JiraAction</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CPVAction</servlet-name>
+		<url-pattern>/servlet/CPVAction</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CNPWAction</servlet-name>
+		<url-pattern>/servlet/CNPWAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProjectAction</servlet-name>
+		<url-pattern>/servlet/ProjectAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RESTAPIAction</servlet-name>
+		<url-pattern>/RESTAPI</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>RequirementAction</servlet-name>
+		<url-pattern>/servlet/RequirementAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SharedRequirementAction</servlet-name>
+		<url-pattern>/servlet/SharedRequirementAction</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>TDCSAction</servlet-name>
+		<url-pattern>/servlet/TDCSAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FolderAction</servlet-name>
+		<url-pattern>/servlet/FolderAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TraceAction</servlet-name>
+		<url-pattern>/servlet/TraceAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RequirementTypeAction</servlet-name>
+		<url-pattern>/servlet/RequirementTypeAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProjectBaselineAction</servlet-name>
+		<url-pattern>/servlet/ProjectBaselineAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserAccountAction</servlet-name>
+		<url-pattern>/servlet/UserAccountAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RoleAction</servlet-name>
+		<url-pattern>/servlet/RoleAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReportAction</servlet-name>
+		<url-pattern>/servlet/ReportAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DisplayAction</servlet-name>
+		<url-pattern>/servlet/DisplayAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ImportFromExcelAction</servlet-name>
+		<url-pattern>/servlet/ImportFromExcelAction</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ImportFromExcelActionTN</servlet-name>
+		<url-pattern>/servlet/ImportFromExcelActionTN</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddRequirementAttachmentAction</servlet-name>
+		<url-pattern>/servlet/AddRequirementAttachmentAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddRequirementAttachmentActionOpen</servlet-name>
+		<url-pattern>/servlet/AddRequirementAttachmentActionOpen</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ImportFromExcelProcessAction</servlet-name>
+		<url-pattern>/servlet/ImportFromExcelProcessAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CreateWordTemplateAction</servlet-name>
+		<url-pattern>/servlet/CreateWordTemplateAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CreateSNWordTemplateAction</servlet-name>
+		<url-pattern>/servlet/CreateSNWordTemplateAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditWordTemplateAction</servlet-name>
+		<url-pattern>/servlet/EditWordTemplateAction</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>WordTemplateAction</servlet-name>
+		<url-pattern>/servlet/WordTemplateAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BaselineMetricsAction</servlet-name>
+		<url-pattern>/servlet/BaselineMetricsAction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EncodingFilter</servlet-name>
+		<url-pattern>/EncodingFilter</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	
+
+</web-app>

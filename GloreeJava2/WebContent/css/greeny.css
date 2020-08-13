@@ -1,0 +1,180 @@
+/* CSS Document */
+
+body {
+	top: 0;
+	margin: 0;
+	background: url(/GloreeJava2/images/WebSite/vertical.png) repeat-x top left #252525;
+}
+
+#header {
+	height: 101px;
+}
+
+.title {
+	line-height: 44px;
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:22px;
+	font-weight: bold;
+	padding-left: 50px;
+}
+
+.slogan {
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:18px;
+	font-style:italic;
+	padding-left: 50px;
+}
+
+#menu { 
+	float: right;
+	height: 34px;
+}
+
+.butonas {
+
+	width: 50px;
+	height: 25px;
+	float: left;
+	margin-right: 10px;
+	line-height: 30px;
+	color: #1F4D7A;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size: 10px;
+	text-align:center;
+}
+
+.butonas a{
+	background: url(/GloreeJava2/images/WebSite/butonas.jpg) no-repeat left;
+	display:block;
+	color: #1F4D7A;
+	text-decoration:none;
+}
+
+.butonas a:hover{
+	background: url(/GloreeJava2/images/WebSite/hover.jpg) no-repeat left;
+}
+
+#corp {
+	background: #EDEDFA;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 10px;
+	border-bottom: #12212E solid 2px;
+	border-top: #12212E solid 2px;
+}
+
+.main-text {
+	background: white;
+	width: 800px;
+	min-height: 300px;
+	position: relative;
+	border: #5288AE solid 1px;
+	padding-left: 15px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+.main-text p{
+	line-height: 100%;
+	padding-right: x;
+	}
+
+
+
+	
+#tryItFreeDiv{ 	
+	width: 240px;
+	position:relative;
+	background: #DAE6AC;
+	border: #80942E solid 1px;
+}
+
+#logInDiv{ 	
+	width: 240px;
+	position:relative;
+	background: #DAE6AC;
+	border: #80942E solid 1px;
+}
+#moreInfoDiv{ 	
+	width: 240px;
+	position:relative;
+	background: #DAE6AC;
+	border: #80942E solid 1px;
+}
+
+#whitePaperDiv{ 	
+	width: 240px;
+	height:60px;
+	position:relative;
+	background: #DAE6AC;
+	border: #80942E solid 1px;
+}
+
+.menu-item {
+	height: 30px;
+	background: #DAE6AC;
+	line-height: 30px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size:16px;
+}
+
+.menu-item a{
+	color: #333333;
+	text-decoration:none;
+	display: block;
+}
+
+
+.menu-item a:hover{
+	color: #333333;
+	text-decoration:none;
+	background: #B4CB58;
+}
+
+
+
+.menu-title {
+	height: 30px;
+	font-size: 20px;
+	background: #80942E;
+	line-height: 30px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color:#FFFFFF;
+	text-align:center;
+}
+
+.footer {
+	height: 35px;
+	color: #FFFFFF;
+	line-height: 34px;
+	padding-left: 30px;
+}
+
+.footer a{
+		color: #FFFFFF;
+		text-decoration:underline;
+}
+
+.footer a:visited {
+		color: #FFFFFF;
+		text-decoration:underline;
+}
+.clear {
+	clear: both;
+	line-height: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.ttitle {
+	color: green;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size: 22px;
+	padding: 25px 0;
+	font-weight:bold
+}

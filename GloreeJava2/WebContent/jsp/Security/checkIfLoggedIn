@@ -1,0 +1,12 @@
+<!-- pageEncoding -->
+<%@page contentType="text/html;charset=UTF-8"%>
+
+<%
+	// authorization
+	String isLoggedIn = (String ) session.getAttribute("isLoggedIn");
+	if ((isLoggedIn == null) || (isLoggedIn.equals(""))){
+		// this means that the user is not logged in. So lets forward him to the 
+		// log in page.
+%>
+		<jsp:forward page="/jsp/WebSite/startPage.jsp"/>
+<% }%>
